@@ -1,6 +1,4 @@
-git commit -m "Keep calm and commit"#!/usr/bin/env sh
+#!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-npm test
-lint-staged
-prettier --write --single-quote --trailing-comma all --tab-width 4 'src/**/*.{js,json,scss}'
+npx lint-staged

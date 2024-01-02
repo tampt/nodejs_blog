@@ -5,6 +5,8 @@ const methodOverride = require('method-override');
 //const handlebars = require('express-handlebars');
 const { engine } = require('express-handlebars');
 
+const SortMiddleware = require('./app/middlewares/sortMiddleware');
+
 const route = require('./routes');
 const db = require('./config/db');
 
@@ -26,6 +28,9 @@ app.use(express.json());
 // override with the X-HTTP-Method-Override header in the request
 app.use(methodOverride('_method'));
 
+// custom Middleware
+app.use(SortMiddleware);
+
 // HTTP Loggers
 // app.use(morgan('combined'));
 
@@ -34,9 +39,7 @@ app.engine(
     'hbs',
     engine({
         extname: '.hbs',
-        helpers: {
-            sum: (a, b) => a + b,
-        },
+        helpers: require('./helpers/handlebars'),
     }),
 );
 app.set('view engine', 'hbs');
